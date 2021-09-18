@@ -2,6 +2,7 @@ package br.edu.ifpb.padroes.api.pizzahot.proxy;
 
 import br.edu.ifpb.padroes.api.damenos.DamenosPizza;
 import br.edu.ifpb.padroes.api.pizzahot.PizzaHotPizza;
+import br.edu.ifpb.padroes.domain.Pizza;
 
 import java.util.List;
 
