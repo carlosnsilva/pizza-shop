@@ -7,8 +7,12 @@ import br.edu.ifpb.padroes.api.pizzahot.PizzaHotPizza;
 import br.edu.ifpb.padroes.api.pizzahot.PizzaHotServiceImpl;
 import br.edu.ifpb.padroes.api.pizzahot.proxy.PizzaHotService;
 import br.edu.ifpb.padroes.domain.Pizza;
+import br.edu.ifpb.padroes.domain.adapter.DamenosAdapter;
+import br.edu.ifpb.padroes.domain.adapter.PizzahotAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PizzaShopService {
 
@@ -64,6 +68,20 @@ public class PizzaShopService {
 
     public List<PizzaHotPizza> getPizzasPizzaHot() {
         return pizzaHotService.getPizzas();
+    }
+
+    public List<Pizza> getPizzas(){
+        List<Pizza> pizzas = new ArrayList<>();
+        List<DamenosPizza> damenosPizzas = damenosService.getPizzas();
+        List<PizzaHotPizza> pizzaHotPizzas = pizzaHotService.getPizzas();
+
+        pizzas.addAll(damenosPizzas.stream()
+                .map(damenosPizza -> new DamenosAdapter(damenosPizza)).collect(Collectors.toList()));
+
+        pizzas.addAll(pizzaHotPizzas.stream()
+                .map(pizzaHotPizza -> new PizzahotAdapter(pizzaHotPizza)).collect(Collectors.toList()));
+
+        return pizzas;
     }
 
 }
