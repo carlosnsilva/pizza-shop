@@ -9,6 +9,9 @@ import br.edu.ifpb.padroes.api.pizzahot.proxy.PizzaHotService;
 import br.edu.ifpb.padroes.domain.Pizza;
 import br.edu.ifpb.padroes.domain.adapter.DamenosAdapter;
 import br.edu.ifpb.padroes.domain.adapter.PizzahotAdapter;
+import br.edu.ifpb.padroes.domain.decorator.DiscountCouponPizzaDecorator;
+import br.edu.ifpb.padroes.domain.decorator.ExtraCheesePizzaDecorator;
+import br.edu.ifpb.padroes.domain.decorator.StuffedCrustPizzaDecorator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,6 +59,17 @@ public class PizzaShopService {
 
         System.out.println(String.format("New order for = %s", name));
         System.out.println(String.format("Total price = %f", totalPrice));
+
+    }
+
+
+    public void orderPizza(Pizza pizza){
+        Pizza pizzaDiscount = new DiscountCouponPizzaDecorator(pizza);
+        Pizza pizzaExtraLactose = new ExtraCheesePizzaDecorator(pizzaDiscount);
+        Pizza pizzaBordaRecheada = new StuffedCrustPizzaDecorator(pizzaExtraLactose);
+
+        System.out.println(String.format("New order for = %s", pizzaBordaRecheada.getName()));
+        System.out.println(String.format("Total price = %f", pizzaBordaRecheada.getPrice()));
 
     }
 
